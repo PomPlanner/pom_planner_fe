@@ -20,11 +20,11 @@ RSpec.describe GoogleCalendarService do
     # Stub the Faraday connection to return a mock response
     allow_any_instance_of(Faraday::Connection).to receive(:get)
     .with('test')
-    .and_return(double(body: '{"message": "Test response"}'))
+    .and_return(double(body: '{"message": "sldkjslfls"}'))
 
     service = GoogleCalendarService.new
     response = service.get_url('test')
 
-    expect(response).to eq({ message: 'Test response' })
+    expect(response).to eq({ message: 'sldkjslfls' })
   end
 end
