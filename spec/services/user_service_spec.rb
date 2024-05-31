@@ -1,15 +1,15 @@
 require 'rails_helper'
 
-RSpec.describe GoogleCalendarService do
+RSpec.describe UserService do
 
   it "exists" do
-    service = GoogleCalendarService.new
+    service = UserService.new
 
-    expect(service).to be_an_instance_of GoogleCalendarService
+    expect(service).to be_an_instance_of UserService
   end
 
   it "#conn" do
-    service = GoogleCalendarService.new
+    service = UserService.new
     connection = service.conn
 
     expect(connection).to be_an_instance_of Faraday::Connection
@@ -22,7 +22,7 @@ RSpec.describe GoogleCalendarService do
     .with('test')
     .and_return(double(body: '{"message": "sldkjslfls"}'))
 
-    service = GoogleCalendarService.new
+    service = UserService.new
     response = service.get_url('test')
 
     expect(response).to eq({ message: 'sldkjslfls' })

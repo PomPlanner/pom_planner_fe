@@ -10,7 +10,7 @@
 
 #   it "#conn" do
 #     service = YouTubeService.new
-#     connection = service.connection
+#     connection = service.conn
 
 #     expect(connection).to be_an_instance_of Faraday::Connection
 #     expect(connection.url_prefix.to_s).to eq("http://localhost:5000/")
