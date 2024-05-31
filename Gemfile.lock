@@ -323,7 +323,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
-  bootstrap (~> 5.1.3)
+  bootstrap
   capybara
   debug
   factory_bot_rails
