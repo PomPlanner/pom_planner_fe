@@ -1,6 +1,7 @@
 class SessionsController
-  def create
 
+  def create
+    # code
   end
 
   def destroy
