@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/failure', to: redirect('/')
-  delete '/logout', to: 'sessions#destroy'
+  delete '/logout', to: 'sessions#destroy', as: 'logout'
+
+  resources :users, only: [:show]
+  get '/users/:id/search', to: 'search#index'
+  resources :search, only: [:index, :show]
   # Defines the root path route ("/")
   # root "posts#index"
 end

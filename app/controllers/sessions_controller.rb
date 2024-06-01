@@ -1,4 +1,4 @@
-class SessionsController
+class SessionsController < ApplicationController
 
   def create
     # code
