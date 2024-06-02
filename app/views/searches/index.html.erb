@@ -1,16 +1,10 @@
-<!-- conditional to render either the search boxes or the results -->
-
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-
-<body>
-  <div class="search-results">
-    <% if @results.any? %>
-      <%= @results.each do |result| %>
-        <%= @result.thumbnail %>
-        <!-- other shit we want -->
-      <% end %>
-    <% else %>
-    display the checkboxes go here
+<div class="search-results">
+  <% if @results.any? %>
+    <% @results.each do |result| %>
+      <%= @result.thumbnail %>
+      <!-- other things we want -->
+    <% end %>
+  <% else %>
+    Please enter search criteria.
+  <% end %>
+</div>
