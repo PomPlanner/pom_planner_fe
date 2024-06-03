@@ -1,4 +1,11 @@
 
-  <h1>Welcome to PomPlanner App</h1>
-  <p>Click the link below to sign in with Google:</p>
-  <a href="http://localhost:5000/auth/google_oauth2">Sign in with Google</a>
+<!-- vh-100 sets viewport height to 100% -->
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="row">
+    <div class="col text-center">
+      <h1>Welcome to PomPlanner</h1>
+      <p>Click the link below to sign in with Google:</p>
+      <%= button_to 'Sign in with Google', 'http://localhost:5000/auth/google_oauth2', data: { turbo: false }, class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>

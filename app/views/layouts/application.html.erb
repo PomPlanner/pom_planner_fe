@@ -2,7 +2,8 @@
 <html>
   <head>
     <title>PomPlannerFe</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- Adds mobile friendly style with zooming enabled, to disable zooming, add `user-scalable=no"` -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,6 +12,11 @@
   </head>
 
   <body>
+    <% flash.each do |type, message| %>
+      <section class=<%= type %>>
+        <p><%= message %></p>
+      </section>
+    <% end %>
     <%= yield %>
   </body>
 </html>
