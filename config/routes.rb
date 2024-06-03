@@ -5,13 +5,15 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   root "home#index"  # Assuming HomeController with an index action
   get "up" => "rails/health#show", as: :rails_health_check
-  get '/auth/:provider/callback', to: 'sessions#create'
+
+  get '/auth/:provider/callback', to: 'sessions#omniauth'
   get '/auth/failure', to: redirect('/')
   delete '/logout', to: 'sessions#destroy', as: 'logout'
 
   resources :users, only: [:show]
   get '/users/:id/search', to: 'search#index'
   resources :search, only: [:index, :show]
+
   # Defines the root path route ("/")
   # root "posts#index"
 end
