@@ -2,15 +2,14 @@
 <html>
   <head>
     <title>PomPlannerFe</title>
-    <!-- Adds mobile friendly style with zooming enabled, to disable zooming, add `user-scalable=no"` -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
 
+    <%= csp_meta_tag %>
+    <%= csrf_meta_tags %>
+    
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
   <body>
     <% flash.each do |type, message| %>
       <section class=<%= type %>>

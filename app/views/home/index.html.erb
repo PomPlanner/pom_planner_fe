@@ -1,11 +1,11 @@
-
-<!-- vh-100 sets viewport height to 100% -->
 <div class="container d-flex justify-content-center align-items-center vh-100">
   <div class="row">
     <div class="col text-center">
       <h1>Welcome to PomPlanner</h1>
       <p>Click the link below to sign in with Google:</p>
-      <%= button_to 'Sign in with Google', 'http://localhost:5000/auth/google_oauth2', data: { turbo: false }, class: "btn btn-primary" %>
+      <%= form_with url: 'http://localhost:5000/api/v1/auth/google_oauth2', method: :post, local: true do %>
+        <%= submit_tag 'Sign in with Google', class: "btn btn-primary" %>
+      <% end %>
     </div>
   </div>
 </div>
