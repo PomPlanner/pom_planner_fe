@@ -9,12 +9,10 @@ class SessionsController < ApplicationController
   end
 
   def omniauth
-    # Extract user information from the query parameters
     user_id = params[:user_id]
     if user_id
-      user = User.find(user_id)
       session[:user_id] = user_id
-      redirect_to user_path(user), notice: "Signed in successfully"
+      redirect_to user_path(user_id), notice: "Signed in successfully"
     else
       redirect_to root_path, alert: "Authentication failed. Please try again."
     end

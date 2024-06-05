@@ -12,4 +12,12 @@ class PomPlannerService
     response = conn.delete(url)
     response.success?
   end
+
+  def self.get_user_videos
+    get_url("/api/v1/user_videos")
+  end
+
+  def get_search_results
+    get_url("/api/v1/searches")
+  end
 end
