@@ -5,7 +5,6 @@ class PomPlannerService
 
   def get_url(url)
     response = conn.get(url)
-    # require 'pry'; binding.pry
     JSON.parse(response.body, symbolize_names: true)
   end
 
@@ -23,9 +22,6 @@ class PomPlannerService
   end
 
   def get_user(user_id)
-    # data = get_url("/api/v1/users/#{user_id}")
-    # require 'pry'; binding.pry
-    # User.new(data[:data][:attributes].transform_keys(&:to_sym))
     data = get_url("/api/v1/users/#{user_id}")
 
     if data.key?(:data) && data[:data].key?(:attributes)
@@ -58,11 +54,11 @@ class PomPlannerService
       end
     else
       Rails.logger.error("Failed to fetch favorite videos for user #{user_id}.")
-      return [] # Return an empty array on failure
+      return [] 
     end
   rescue JSON::ParserError => e
     Rails.logger.error("Error parsing JSON response: #{e.message}")
-    return [{ message: "Error fetching favorite videos." }] # Return a specific message if JSON parsing fails
+    return [{ message: "Error fetching favorite videos." }] 
   end
 
   def remove_favorite_video(user_id, video_id)
