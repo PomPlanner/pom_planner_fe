@@ -1,7 +1,9 @@
 <div class="search-results">
-  <% if @results.any? %>
-    <% @results.each do |result| %>
-      <%= @result.thumbnail %>
+  <% if @videos.present? %>
+    <% @videos.each do |video| %>
+      <%= video.title %>
+      <%= video.url %>
+      <%= video.thumbnail %>
       <!-- other things we want -->
     <% end %>
   <% else %>
