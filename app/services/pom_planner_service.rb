@@ -34,7 +34,8 @@ class PomPlannerService
   end
   
   def search_videos(query, duration)
-    data = get_url("/api/v1/searches?query=#{query}&video_duration=#{duration}")
+    data = get_url("/api/v1/search?query=#{query}&video_duration=#{duration}")
+    binding.pry
     data[:videos].map { |video_data| Video.new(video_data) }
   end
 
