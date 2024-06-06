@@ -5,6 +5,7 @@ class PomPlannerService
 
   def get_url(url)
     response = conn.get(url)
+    # require 'pry'; binding.pry
     JSON.parse(response.body, symbolize_names: true)
   end
 
@@ -22,15 +23,21 @@ class PomPlannerService
   end
 
   def get_user(user_id)
+    # data = get_url("/api/v1/users/#{user_id}")
     # require 'pry'; binding.pry
-    # get_url("/api/v1/users/#{user_id}")
+    # User.new(data[:data][:attributes].transform_keys(&:to_sym))
     data = get_url("/api/v1/users/#{user_id}")
-    # require 'pry'; binding.pry
-    User.new(data)
+
+    if data.key?(:data) && data[:data].key?(:attributes)
+      attributes = data[:data][:attributes]
+      User.new(attributes.transform_keys(&:to_sym))
+    else
+      Rails.logger.error("Failed to fetch user data for user #{user_id}")
+      nil
+    end
   end
   
   def search_videos(query, duration)
-    # get_url("/api/v1/searches?query=#{query}&video_duration=#{duration}")
     data = get_url("/api/v1/searches?query=#{query}&video_duration=#{duration}")
     data[:videos].map { |video_data| Video.new(video_data) }
   end
@@ -41,11 +48,21 @@ class PomPlannerService
 
   def get_favorite_videos(user_id)
     response = conn.get("/api/v1/users/#{user_id}/user_videos")
-    if response.body.present?
-      JSON.parse(response.body, symbolize_names: true)
+    if response.success?
+      data = JSON.parse(response.body, symbolize_names: true)
+      if data.empty? || data.first.key?(:message)
+        Rails.logger.info("No favorite videos found for user #{user_id}.")
+        return [] # Return an empty array when no favorite videos are found
+      else
+        return data.map { |video_data| Video.new(video_data) } # Return an array of Video objects
+      end
     else
-      [] 
+      Rails.logger.error("Failed to fetch favorite videos for user #{user_id}.")
+      return [] # Return an empty array on failure
     end
+  rescue JSON::ParserError => e
+    Rails.logger.error("Error parsing JSON response: #{e.message}")
+    return [{ message: "Error fetching favorite videos." }] # Return a specific message if JSON parsing fails
   end
 
   def remove_favorite_video(user_id, video_id)
