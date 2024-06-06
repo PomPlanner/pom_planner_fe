@@ -2,14 +2,20 @@ require 'rails_helper'
 
 RSpec.describe "User Show Page" do
   before :each do
-    # require 'pry'; binding.pry
     stub_request(:get, "http://localhost:5000/api/v1/users/1")
       .to_return(status: 200, body: {
-        id: 1,
-        name: "Test User",
-        email: "test@example.com",
-        image: "test_image.jpg"
+        data: {
+          id: "1",
+          type: "user",
+          attributes: {
+            id: 1,
+            name: "Test User",
+            email: "test@example.com",
+            image: "test_image.jpg"
+          }
+        }
       }.to_json)
+
     visit user_path(1)
   end
   

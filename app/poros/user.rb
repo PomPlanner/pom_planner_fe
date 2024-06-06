@@ -2,7 +2,6 @@ class User
   attr_reader :id, :name, :email, :image, :favorite_videos
 
   def initialize(data)
-    # require 'pry'; binding.pry
     @id = data[:id]
     @name = data[:name]
     @email = data[:email]
