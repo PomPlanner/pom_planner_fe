@@ -3,7 +3,6 @@ class SearchController < ApplicationController
     query = params[:q]
     duration = params[:duration]
     @videos = pom_planner_service.search_videos(query, duration)
-    binding.pry
   end
 
   private

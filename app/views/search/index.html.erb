@@ -1,0 +1,14 @@
+<div class="search-results">
+  <% if @videos.present? %>
+    <ul>
+      <% @videos.each do |video| %>
+      <li><%= video.title %> - <a href="<%= video.url %>"> Watch</li>
+      <li><%= video.thumbnail %></li>
+      <%# button_to "Add to favorites", user_video_path(video.id), method: :post %>
+      <!-- other things we want -->
+      <% end %>
+    </ul>
+  <% else %>
+    Please enter search criteria.
+  <% end %>
+</div>

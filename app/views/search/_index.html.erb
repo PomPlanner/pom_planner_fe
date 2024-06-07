@@ -4,6 +4,7 @@
       <%= video.title %>
       <%= video.url %>
       <%= video.thumbnail %>
+      <%= button_to "Add to favorites", user_video_path(video.id), method: :post %>
       <%= binding.pry %>
       <!-- other things we want -->
     <% end %>
