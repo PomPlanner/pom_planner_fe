@@ -2,7 +2,7 @@
 
 # Pom Planner FE app
 ## OAuth
-  We used google authentication for this app. It was difficult to implement and subtracted the time we had to be able to deploy to front facing web link. We used bootstrap as a styler and did not complete the user dashboard as we would have liked. Future refactoring can make this a great web app.
+  omni auth is a beast to figure out. Omniauth supports google oauth2.0 integration. Youll need to sign up for a google developers console account and follow the steps there to create a project and authentication. Omniauth persists users data to our backend users database so a user is created automatically and the user does not have to manually sign up. It was difficult to implement and subtracted the time we had to be able to deploy to front facing web link. We used bootstrap as a styler and did not complete the user dashboard as we would have liked. Future refactoring can make this a great web app.
   
 # Screenshots of app
 ## Welcome
