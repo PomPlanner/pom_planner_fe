@@ -1,9 +1,8 @@
-class SearchesController < ApplicationController
+class SearchController < ApplicationController
   def index
-    query = params[:query]
-    duration = params[:video_duration]
+    query = params[:q]
+    duration = params[:duration]
     @videos = pom_planner_service.search_videos(query, duration)
-  
   end
 
   private

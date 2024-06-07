@@ -34,8 +34,8 @@ class PomPlannerService
   end
   
   def search_videos(query, duration)
-    data = get_url("/api/v1/searches?query=#{query}&video_duration=#{duration}")
-    data[:videos].map { |video_data| Video.new(video_data) }
+    data = get_url("/api/v1/search?query=#{query}&video_duration=#{duration}")
+    data.map { |video_data| Video.new(video_data) }
   end
 
   def add_favorite_video(user_id, video_params)

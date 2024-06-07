@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy', as: 'logout'
   
   resources :users, only: [:show]
-  get '/users/:id/search', to: 'search#index'
-  resources :search, only: [:index, :show]
+  get '/users/:id/search', to: 'search#index', as: 'user_search'
+  resources :search, only: [:show]
   
   get "up" => "rails/health#show", as: :rails_health_check
   # Defines the root path route ("/")
