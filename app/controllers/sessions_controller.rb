@@ -15,6 +15,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    require 'pry'; binding.pry
     if pom_planner_service.delete_url('http://localhost:5000/logout')
       session[:user_id] = nil
       redirect_to root_path, notice: "Logged out!"

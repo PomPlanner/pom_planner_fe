@@ -5,10 +5,14 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   root "home#index"  # Assuming HomeController with an index action
   
-  get '/users/:id', to: 'users#show', as: 'user'
+  # get '/users/:id', to: 'users#show', as: 'user'
   get '/auth/google_oauth2/callback', to: 'sessions#omniauth'
   get '/auth/failure', to: redirect('/')
   delete '/logout', to: 'sessions#destroy', as: 'logout'
+  
+  resources :users, only: [:show] do
+    resources :videos, only: [:index, :create, :destroy]
+  end
   
   get '/users/:id/search', to: 'search#index', as: 'user_search'
   resources :search, only: [:show]

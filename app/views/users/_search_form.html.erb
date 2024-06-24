@@ -1,13 +1,26 @@
-<%= form_with url: user_search_path, method: :get, local: true do %>
+<%= form_with url: user_path(@user.id), method: :get, local: true do %>
   <div class="field">
-    <%= label_tag :q, "Search" %>
-    <%= text_field_tag :q, params[:q] %>
+    <strong>Select Categories:</strong><br>
+    <div class="checkbox-group">
+      <% categories = [
+          'at home', 'no equipment', 'posture exercises', 'core exercises', 'full body workout', 
+          'hip mobility', 'hip stretch', 'leg stretch', 'wrist exercises', 'sun salutations', 
+          'yoga flow', 'pranayama', 'meditation', 'stress relief', 'lymphedema leg exercises'
+        ] %>
+
+      <% categories.each do |category| %>
+        <div>
+          <%= check_box_tag 'q[]', category, params[:q]&.include?(category), class: 'category-checkbox' %>
+          <%= label_tag category, category.titleize %>
+        </div>
+      <% end %>
+    </div>
   </div>
 
   <div class="field">
     <%= label_tag :duration, "Duration" %>
-    <%= select_tag :duration, options_for_select([['Any', 'any'], ['Long', 'long'], ['Medium', 'medium'], ['Short', 'short']], params[:duration]) %>
-  <div>
+    <%= select_tag :duration, options_for_select([['Medium', 'medium'], ['Short', 'short']], params[:duration]), required: true %>
+  </div>
 
   <div class="actions">
     <%= submit_tag "Search", class: "btn btn-primary" %>

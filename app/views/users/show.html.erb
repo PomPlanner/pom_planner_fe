@@ -1,42 +1,51 @@
-<!-- app/views/users/show.html.erb -->
 <!DOCTYPE html>
 <html>
 <head>
   <%= render partial: 'shared/logged_in_header' %>
   <style>
     .profile-image {
-      width: 50px;
-      height: 50px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       overflow: hidden;
+    }
+    .favorite-title {
+      font-size: 2rem; /* Adjust the size as needed */
+    }
+    .search-title {
+      font-size: 2rem; /* Adjust the size as needed */
     }
   </style>
 </head>
 <body>
-  <div class="user-info">
-    <h1>Welcome, <%= @user.name %>!</h1>
-    <img src="<%= @user.image %>" alt="Profile Image" class="profile-image">
-    <p>Email: <%= @user.email %></p>
-  </div>
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="favorite-videos">
+          <h3 class="favorite-title">Favorite Videos</h3>
+          <ul>
+            <% @favorite_videos.each do |video| %>
+              <li>
+                <h3><%= video.title %></h3>
+                <iframe width="560" height="315" src="<%= video.embed_url %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <%= button_to 'Remove from favorites', user_video_path(video.id), method: :delete %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="col-md-5">
+        <h3 class="search-title">Search for videos!</h3>
+        <div class="search-form">
+          <%= render partial: 'search_form' %>
+        </div>
 
-  <div class="search-form">
-    <%= render partial: 'search_form' %>
-  </div>
-
-  <div class="search-results">
-    <%= render partial: 'search/index' %>
-  </div>
-
-  <div class="favorite-videos">
-    <h2>Favorite Videos</h2>
-    <ul>
-      <% @favorite_videos.each do |video| %>
-        <li>
-          <%= video.title %> - <a href="<%= video.url %>">Watch</a>
-          <%= button_to 'Remove from favorites', user_video_path(video.id), method: :delete %>
-        </li>
-      <% end %>
-    </ul>
+        <div class="search-results mt-4">
+          <%= render partial: 'search/index', locals: { videos: @videos } %>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 </html>

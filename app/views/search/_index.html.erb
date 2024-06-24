@@ -1,14 +1,15 @@
 <div class="search-results">
   <% if @videos.present? %>
-    <% @videos.each do |video| %>
-      <%= video.title %>
-      <%= video.url %>
-      <%= video.thumbnail %>
-      <%= button_to "Add to favorites", user_video_path(video.id), method: :post %>
-      <%= binding.pry %>
-      <!-- other things we want -->
-    <% end %>
+    <ul>
+      <% @videos.each do |video| %>
+        <li>
+          <h4><%= video.title %></h4>
+          <iframe width="560" height="315" src="<%= video.embed_url %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <%= button_to "Add to favorites", user_video_path(video.id), method: :post %>
+        </li>
+      <% end %>
+    </ul>
   <% else %>
-    Please enter search criteria.
+    <p>Please enter search criteria.</p>
   <% end %>
 </div>
