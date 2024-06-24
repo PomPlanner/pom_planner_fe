@@ -112,6 +112,7 @@ GEM
       reline (>= 0.3.8)
     diff-lcs (1.5.1)
     docile (1.4.0)
+    domain_name (0.6.20240107)
     drb (2.2.1)
     erubi (1.12.0)
     execjs (2.9.1)
@@ -124,6 +125,9 @@ GEM
       i18n (>= 1.8.11, < 2)
     faraday (2.9.1)
       faraday-net_http (>= 2.0, < 3.2)
+    faraday-cookie_jar (0.0.7)
+      faraday (>= 0.8.0)
+      http-cookie (~> 1.0.0)
     faraday-net_http (3.1.0)
       net-http
     ffi (1.17.0-aarch64-linux-gnu)
@@ -135,6 +139,8 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashdiff (1.1.0)
+    http-cookie (1.0.6)
+      domain_name (~> 0.5)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.0.1)
@@ -334,6 +340,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   faraday
+  faraday-cookie_jar
   importmap-rails
   jbuilder
   launchy

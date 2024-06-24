@@ -1,6 +1,10 @@
 class PomPlannerService
   def conn
-    Faraday.new(url: "http://localhost:5000")
+    Faraday.new(url: "http://localhost:5000") do |faraday|
+      faraday.use :cookie_jar
+      faraday.headers['Content-Type'] = 'application/json'
+      faraday.headers['Accept'] = 'application/json'
+    end
   end
 
   def get_url(url)
@@ -10,7 +14,6 @@ class PomPlannerService
 
   def post_url(url, params)
     response = conn.post(url) do |req|
-      req.headers['Content-Type'] = 'application/json'
       req.body = params.to_json
     end
     JSON.parse(response.body, symbolize_names: true)
