@@ -22,7 +22,7 @@ class PomPlannerService
   
   def delete_url(url)
     response = conn.delete(url)
-    response.success?
+    response
   end
 
   def get_user(user_id)

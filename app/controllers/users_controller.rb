@@ -9,8 +9,8 @@ class UsersController < ApplicationController
     if params[:q].present? && params[:duration].present?
       @videos = pom_planner_service.search_videos(params[:q], params[:duration])
     else
-      flash[:alert] = "Please select at least one category and duration."
       @videos = []
+      flash[:alert] = "Please select at least one category and duration." if request.get? && params[:commit] == "Search"
     end
 
     unless @user
