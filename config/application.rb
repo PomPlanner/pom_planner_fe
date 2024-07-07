@@ -23,7 +23,7 @@ module PomPlannerFe
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
     config.middleware.use ActionDispatch::Cookies
-    config.middleware.use ActionDispatch::Session::CookieStore, key: '_pom_planner_fe_session'
+    config.middleware.use ActionDispatch::Session::CookieStore, key: '_your_app_session'
     config.middleware.use ActionDispatch::Flash
 
     config.api_only = false
