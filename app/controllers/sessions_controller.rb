@@ -9,16 +9,20 @@ class SessionsController < ApplicationController
     if user_id
       session[:user_id] = user_id
       redirect_to user_path(user_id), notice: "Signed in successfully"
+      # require 'pry'; binding.pry
     else
       redirect_to root_path, alert: "Authentication failed. Please try again."
     end
   end
 
   def destroy
-    if pom_planner_service.delete_url('http://localhost:5000/logout')
+    response = pom_planner_service.delete_url('http://localhost:5000/api/v1/logout')
+    if response.success?
       session[:user_id] = nil
+      reset_session
       redirect_to root_path, notice: "Logged out!"
     else
+    # require 'pry'; binding.pry
       flash[:error] = "Failed to logout. Please try again."
       redirect_to root_path
     end

@@ -1,14 +1,15 @@
-<header>
+<header class="bg-light py-3">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col text-end">
-        <!-- empty column -->
+    <div class="row align-items-center">
+      <div class="col-md-2 text-start">
+        <img src="<%= @user.image %>" alt="Profile Image" class="profile-image">
+        <p>Email: <%= @user.email %></p>
       </div>
-      <div class="col text-center">
-        <h1>PomPlanner</h1>
+      <div class="col-md-8 text-center">
+        <h1>Welcome to PomPlanner, <%= @user.name %>!</h1>
       </div>
-      <div class="col text-start">
-        <%= link_to 'Logout', logout_path, method: :delete, class: "btn btn-secondary" %>
+      <div class="col-md-2 text-end">
+        <%= link_to 'Logout', logout_path, method: :delete, class: "btn btn-secondary", data: { turbo_method: :delete } %>
       </div>
     </div>
   </div>
