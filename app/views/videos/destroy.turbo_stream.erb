@@ -1,1 +1,7 @@
-<%= turbo_stream.replace "favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos } %>
+<%= turbo_stream.replace "favorite-videos" do %>
+  <%= render partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos } %>
+<% end %>
+
+<%= turbo_stream.append "flash-messages" do %>
+  <div class="notice">Video removed from favorites</div>
+<% end %>

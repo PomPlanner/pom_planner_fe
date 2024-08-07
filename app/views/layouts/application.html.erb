@@ -7,16 +7,20 @@
   <%= csp_meta_tag %>
   <%= csrf_meta_tags %>
 
+  <link rel="preload" href="<%= asset_path('application.css') %>" as="style">
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %>
 </head>
 <body>
-  <% flash.each do |type, message| %>
-    <section class=<%= type %>>
-      <p><%= message %></p>
-    </section>
-  <% end %>
+  <div id="flash-messages">
+    <% flash.each do |type, message| %>
+      <section class=<%= type %>>
+        <p><%= message %></p>
+      </section>
+    <% end %>
+    <% flash.clear %>
+  </div>
+  
   <%= yield %>
-  <% flash.clear %>
 </body>
 </html>
