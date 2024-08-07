@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>PomPlannerFe</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <title>PomPlannerFe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <%= csp_meta_tag %>
-    <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-  </head>
-  <body>
-    <% flash.each do |type, message| %>
-      <section class=<%= type %>>
-        <p><%= message %></p>
-      </section>
-    <% end %>
-    <%= yield %>
-    <% flash.clear %>
-  </body>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+<body>
+  <% flash.each do |type, message| %>
+    <section class=<%= type %>>
+      <p><%= message %></p>
+    </section>
+  <% end %>
+  <%= yield %>
+  <% flash.clear %>
+</body>
 </html>

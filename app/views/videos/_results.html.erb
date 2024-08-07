@@ -1,13 +1,13 @@
 <div class="search-results">
-  <% if @videos.present? %>
+  <% if videos.present? %>
     <ul>
-      <% @videos.each do |video| %>
+      <% videos.each do |video| %>
         <li>
           <h4><%= video.title %></h4>
           <p>Duration: <%= video.duration %></p>
           <p>Duration Category: <%= video.duration_category %></p>
           <iframe width="560" height="315" src="<%= video.embed_url %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <%= button_to "Add to favorites", user_videos_path(@user.id, video: { title: video.title, url: video.url, embed_url: video.embed_url, duration: video.duration, duration_category: video.duration_category }), method: :post %>
+          <%= button_to "Add to favorites", user_videos_path(@user.id, video: { title: video.title, url: video.url, embed_url: video.embed_url, duration: video.duration, duration_category: video.duration_category }), method: :post, remote: true %>
         </li>
       <% end %>
     </ul>

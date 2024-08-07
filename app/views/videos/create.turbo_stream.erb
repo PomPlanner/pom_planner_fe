@@ -1,0 +1,2 @@
+<%= turbo_stream.replace "favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos } %>
+<%= turbo_stream.replace "search-results", partial: "videos/results", locals: { videos: @videos } %>
