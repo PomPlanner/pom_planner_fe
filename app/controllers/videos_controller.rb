@@ -10,25 +10,16 @@ class VideosController < ApplicationController
       @videos = pom_planner_service.search_videos(params[:q], params[:duration]) if params[:q].present? && params[:duration].present?
       Rails.logger.debug "Favorite Videos after adding: #{@favorite_videos.inspect}"
 
+      flash.now[:notice] = "Video added to favorites"
       respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.replace("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos }),
-            turbo_stream.replace("search-results", partial: "search/results", locals: { videos: @videos }),
-            turbo_stream.append("flash-messages", partial: "shared/flash", locals: { notice: "Video added to favorites" })
-          ]
-        end
+        format.turbo_stream
         format.html { redirect_to user_path(@user.id), notice: "Video added to favorites" }
       end
     else
       Rails.logger.error "Failed to add favorite video: #{response.inspect}"
+      flash.now[:alert] = "Failed to add video to favorites"
       respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.replace("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos || [] }),
-            turbo_stream.append("flash-messages", partial: "shared/flash", locals: { alert: "Failed to add video to favorites" })
-          ]
-        end
+        format.turbo_stream
         format.html { redirect_to user_path(@user.id), alert: "Failed to add video to favorites" }
       end
     end
@@ -42,24 +33,16 @@ class VideosController < ApplicationController
       @favorite_videos = pom_planner_service.get_favorite_videos(@user.id)
       Rails.logger.debug "Favorite Videos after removing: #{@favorite_videos.inspect}"
 
+      flash.now[:notice] = "Video removed from favorites"
       respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.replace("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos }),
-            turbo_stream.append("flash-messages", partial: "shared/flash", locals: { notice: "Video removed from favorites" })
-          ]
-        end
+        format.turbo_stream
         format.html { redirect_to user_path(@user.id), notice: "Video removed from favorites" }
       end
     else
       Rails.logger.error "Failed to remove favorite video: #{response.inspect}"
+      flash.now[:alert] = "Failed to remove video from favorites"
       respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.replace("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos || [] }),
-            turbo_stream.append("flash-messages", partial: "shared/flash", locals: { alert: "Failed to remove video from favorites" })
-          ]
-        end
+        format.turbo_stream
         format.html { redirect_to user_path(@user.id), alert: "Failed to remove video from favorites" }
       end
     end

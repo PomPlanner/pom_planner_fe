@@ -36,6 +36,6 @@
   </ul>
 <% end %>
 
-<%= turbo_stream.append "flash-messages" do %>
-  <div class="alert alert-notice">Video added to favorites</div>
+<%= turbo_stream.replace "flash-messages" do %>
+  <%= render partial: "shared/flash", locals: { notice: notice, alert: alert } %>
 <% end %>
