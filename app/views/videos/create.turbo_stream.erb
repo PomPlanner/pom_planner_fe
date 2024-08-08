@@ -1,11 +1,41 @@
 <%= turbo_stream.replace "favorite-videos" do %>
-  <%= render partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos } %>
+  <h3 class="favorite-title">Favorite Videos</h3>
+  <ul>
+    <% if @favorite_videos.present? %>
+      <% @favorite_videos.each_with_index do |video, index| %>
+        <li>
+          <h3><%= video.title %></h3>
+          <p>Duration: <%= video.duration %></p>
+          <p>Category: <%= video.duration_category %></p>
+          <iframe width="560" height="315" src="<%= video.embed_url %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <%= button_to 'Remove from favorites', user_video_path(@user.id, video.id), method: :delete, remote: true %>
+        </li>
+      <% end %>
+    <% else %>
+      <li>No favorite videos found.</li>
+    <% end %>
+  </ul>
 <% end %>
 
 <%= turbo_stream.replace "search-results" do %>
-  <%= render partial: "search/results", locals: { videos: @videos } %>
+  <h3>Search Results</h3>
+  <ul>
+    <% if @videos.present? %>
+      <% @videos.each do |video| %>
+        <li>
+          <h3><%= video.title %></h3>
+          <p>Duration: <%= video.duration %></p>
+          <p>Category: <%= video.duration_category %></p>
+          <iframe width="560" height="315" src="<%= video.embed_url %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <%= button_to 'Add to favorites', user_videos_path(@user.id, video: video.attributes), method: :post, remote: true %>
+        </li>
+      <% end %>
+    <% else %>
+      <li>No search results found.</li>
+    <% end %>
+  </ul>
 <% end %>
 
 <%= turbo_stream.append "flash-messages" do %>
-  <div class="notice">Video added to favorites</div>
+  <div class="alert alert-notice">Video added to favorites</div>
 <% end %>

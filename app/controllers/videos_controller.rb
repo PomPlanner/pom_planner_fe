@@ -3,34 +3,63 @@ class VideosController < ApplicationController
 
   def create
     response = pom_planner_service.add_favorite_video(@user.id, video_params)
+    Rails.logger.debug "Add Favorite Video Response: #{response.inspect}"
+
     if response[:status] == 201
       @favorite_videos = pom_planner_service.get_favorite_videos(@user.id)
-      @videos = pom_planner_service.search_videos(params[:query], params[:duration])
+      @videos = pom_planner_service.search_videos(params[:q], params[:duration]) if params[:q].present? && params[:duration].present?
+      Rails.logger.debug "Favorite Videos after adding: #{@favorite_videos.inspect}"
+
       respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos }) }
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos }),
+            turbo_stream.replace("search-results", partial: "search/results", locals: { videos: @videos }),
+            turbo_stream.append("flash-messages", partial: "shared/flash", locals: { notice: "Video added to favorites" })
+          ]
+        end
         format.html { redirect_to user_path(@user.id), notice: "Video added to favorites" }
       end
     else
+      Rails.logger.error "Failed to add favorite video: #{response.inspect}"
       respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: [] }) }
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos || [] }),
+            turbo_stream.append("flash-messages", partial: "shared/flash", locals: { alert: "Failed to add video to favorites" })
+          ]
+        end
         format.html { redirect_to user_path(@user.id), alert: "Failed to add video to favorites" }
       end
     end
   end
 
-
   def destroy
     response = pom_planner_service.remove_favorite_video(@user.id, params[:id])
-    if response.status == 200
+    Rails.logger.debug "Remove Favorite Video Response: #{response.inspect}"
+
+    if response[:status] == 200
       @favorite_videos = pom_planner_service.get_favorite_videos(@user.id)
-      Rails.logger.debug "Favorite videos after delete: #{@favorite_videos.inspect}"
+      Rails.logger.debug "Favorite Videos after removing: #{@favorite_videos.inspect}"
+
       respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos }) }
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos }),
+            turbo_stream.append("flash-messages", partial: "shared/flash", locals: { notice: "Video removed from favorites" })
+          ]
+        end
         format.html { redirect_to user_path(@user.id), notice: "Video removed from favorites" }
       end
     else
+      Rails.logger.error "Failed to remove favorite video: #{response.inspect}"
       respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: [] }) }
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos || [] }),
+            turbo_stream.append("flash-messages", partial: "shared/flash", locals: { alert: "Failed to remove video from favorites" })
+          ]
+        end
         format.html { redirect_to user_path(@user.id), alert: "Failed to remove video from favorites" }
       end
     end
