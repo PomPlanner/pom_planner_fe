@@ -13,12 +13,7 @@
   </head>
   <body>
     <div id="flash-messages">
-      <% flash.each do |type, message| %>
-        <section class=<%= type %>>
-          <p><%= message %></p>
-        </section>
-      <% end %>
-      <% flash.clear %>
+      <%= render partial: 'shared/flash' %>
     </div>
 
     <%= yield %>
