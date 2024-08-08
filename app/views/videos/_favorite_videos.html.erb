@@ -1,14 +1,8 @@
 <h3 class="favorite-title">Favorite Videos</h3>
 <ul>
   <% if favorite_videos.present? %>
-    <% favorite_videos.each_with_index do |video, index| %>
-      <li>
-        <h3><%= video.title %></h3>
-        <p>Duration: <%= video.duration %></p>
-        <p>Category: <%= video.duration_category %></p>
-        <iframe width="560" height="315" src="<%= video.embed_url %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <%= button_to 'Remove from favorites', user_video_path(@user.id, video.id), method: :delete, remote: true %>
-      </li>
+    <% favorite_videos.each do |video| %>
+      <%= render partial: "videos/video_item", locals: { video: video } %>
     <% end %>
   <% else %>
     <li>No favorite videos found.</li>

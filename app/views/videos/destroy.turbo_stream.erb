@@ -1,22 +1,7 @@
 <%= turbo_stream.replace "favorite-videos" do %>
-  <h3 class="favorite-title">Favorite Videos</h3>
-  <ul>
-    <% if @favorite_videos.present? %>
-      <% @favorite_videos.each_with_index do |video, index| %>
-        <li>
-          <h3><%= video.title %></h3>
-          <p>Duration: <%= video.duration %></p>
-          <p>Category: <%= video.duration_category %></p>
-          <iframe width="560" height="315" src="<%= video.embed_url %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <%= button_to 'Remove from favorites', user_video_path(@user.id, video.id), method: :delete, remote: true %>
-        </li>
-      <% end %>
-    <% else %>
-      <li>No favorite videos found.</li>
-    <% end %>
-  </ul>
+  <%= render partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos } %>
 <% end %>
 
-<%= turbo_stream.replace "flash-messages" do %>
-  <div class="alert alert-notice">Video removed from favorites</div>
+<%= turbo_stream.append "flash-messages" do %>
+  <div class="alert alert-notice">Video successfully removed from favorites</div>
 <% end %>

@@ -13,8 +13,8 @@ class VideosController < ApplicationController
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos }),
-            turbo_stream.replace("search-results", partial: "search/results", locals: { videos: @videos }),
+            turbo_stream.prepend("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos }),
+            turbo_stream.update("search-results", partial: "search/results", locals: { videos: @videos }),
             turbo_stream.append("flash-messages", partial: "shared/flash", locals: { notice: "Video added to favorites" })
           ]
         end
@@ -45,7 +45,8 @@ class VideosController < ApplicationController
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos }),
+            turbo_stream.remove(@video),  # Removes the specific video
+            turbo_stream.update("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos }),
             turbo_stream.append("flash-messages", partial: "shared/flash", locals: { notice: "Video removed from favorites" })
           ]
         end
@@ -56,7 +57,7 @@ class VideosController < ApplicationController
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos || [] }),
+            turbo_stream.update("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos || [] }),
             turbo_stream.append("flash-messages", partial: "shared/flash", locals: { alert: "Failed to remove video from favorites" })
           ]
         end

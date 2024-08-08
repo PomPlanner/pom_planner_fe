@@ -2,10 +2,6 @@
   <%= render partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos } %>
 <% end %>
 
-<%= turbo_stream.replace "search-results" do %>
-  <%= render partial: "search/results", locals: { videos: @videos } %>
-<% end %>
-
 <%= turbo_stream.append "flash-messages" do %>
-  <%= render partial: "shared/flash", locals: { notice: "Video added to favorites" } %>
+  <div class="alert alert-notice">Video successfully added to favorites</div>
 <% end %>
