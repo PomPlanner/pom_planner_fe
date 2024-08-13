@@ -1,7 +1,9 @@
-<%= turbo_stream.update "favorite-videos-list" do %>
+<%= turbo_stream.append "favorite-videos-list" do %>
+  <script>console.log("Appending new video to favorite videos list");</script>
   <%= render partial: "videos/video_item", locals: { video: @favorite_videos.last } %>
 <% end %>
 
 <%= turbo_stream.append "flash-messages" do %>
+  <script>console.log("Appending flash message");</script>
   <div class="alert alert-notice">Video successfully added</div>
 <% end %>

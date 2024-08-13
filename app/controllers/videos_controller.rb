@@ -12,7 +12,7 @@ class VideosController < ApplicationController
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.update("favorite-videos", partial: "videos/favorite_videos", locals: { favorite_videos: @favorite_videos }),
+            turbo_stream.append("favorite-videos-list", partial: "videos/video_item", locals: { video: @favorite_videos.last }),
             turbo_stream.append("flash-messages", partial: "shared/flash", locals: { notice: "Video added to favorites" })
           ]
         end
@@ -31,6 +31,7 @@ class VideosController < ApplicationController
       end
     end
   end
+
 
   def destroy
     response = pom_planner_service.remove_favorite_video(@user.id, params[:id])
