@@ -1,0 +1,16 @@
+<h3>Search Results</h3>
+<ul>
+  <% if videos.present? %>
+    <% videos.each do |video| %>
+      <li id="video_<%= video.id %>">
+        <h3><%= video.title %></h3>
+        <p>Duration: <%= video.duration %></p>
+        <p>Category: <%= video.duration_category %></p>
+        <iframe width="560" height="315" src="<%= video.embed_url %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <%= button_to 'Add to favorites', user_videos_path(@user.id, video: { title: video.title, url: video.url, embed_url: video.embed_url, duration: video.duration, duration_category: video.duration_category }), method: :post, remote: true %>
+      </li>
+    <% end %>
+  <% else %>
+    <li>No search results found.</li>
+  <% end %>
+</ul>

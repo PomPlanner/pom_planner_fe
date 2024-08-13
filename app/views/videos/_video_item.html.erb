@@ -1,0 +1,7 @@
+<li id="video_<%= video.id %>">
+  <h3><%= video.title %></h3>
+  <p>Duration: <%= video.duration %></p>
+  <p>Category: <%= video.duration_category %></p>
+  <iframe width="560" height="315" src="<%= video.embed_url %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <%= button_to 'Remove from favorites', user_video_path(@user.id, video.id), method: :delete, remote: true %>
+</li>

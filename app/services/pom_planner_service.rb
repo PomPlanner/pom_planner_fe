@@ -8,7 +8,6 @@ class PomPlannerService
   end
 
   def get_url(url)
-    # require 'pry'; binding.pry
     response = conn.get(url)
     JSON.parse(response.body, symbolize_names: true)
   end
@@ -17,12 +16,12 @@ class PomPlannerService
     response = conn.post(url) do |req|
       req.body = params.to_json
     end
-    JSON.parse(response.body, symbolize_names: true)
+    JSON.parse(response.body, symbolize_names: true).merge(status: response.status)
   end
   
   def delete_url(url)
     response = conn.delete(url)
-    response
+    { status: response.status }
   end
 
   def get_user(user_id)
