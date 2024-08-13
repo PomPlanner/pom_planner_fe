@@ -1,5 +1,5 @@
 <h3 class="favorite-title">Favorite Videos</h3>
-<ul>
+<ul id="favorite-videos-list">
   <% if favorite_videos.present? %>
     <% favorite_videos.each do |video| %>
       <%= render partial: "videos/video_item", locals: { video: video } %>
