@@ -4,17 +4,21 @@ class UsersController < ApplicationController
   def show
     user_id = params[:id].to_i
     @user = pom_planner_service.get_user(user_id)
+    
+    unless @user
+      redirect_to root_path, alert: "User not found"
+      return
+    end
+
     @favorite_videos = pom_planner_service.get_favorite_videos(user_id)
 
-    if params[:q].present? && params[:duration].present?
+    if params[:clear_search].present?
+      @videos = [] # Clear the search results
+    elsif params[:q].present? && params[:duration].present?
       @videos = pom_planner_service.search_videos(params[:q], params[:duration])
     else
       @videos = []
       flash[:alert] = "Please select at least one category and duration." if request.get? && params[:commit] == "Search"
-    end
-
-    unless @user
-      redirect_to root_path, alert: "User not found"
     end
   end
 

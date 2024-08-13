@@ -27,7 +27,12 @@
       </div>
       
       <div class="col-md-5">
-        <h3 class="search-title">Search for videos!</h3>
+        <h3 class="search-title">
+          Search for videos!
+          <% if @videos.present? %>
+           <%= button_to 'Clear Search Results', user_path(@user.id, clear_search: true), method: :get, remote: true, class: 'btn btn-danger btn-sm ml-2' %>
+          <% end %>
+        </h3>
         <div class="search-form">
           <%= render partial: 'search_form' %>
         </div>
