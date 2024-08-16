@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     @favorite_videos = pom_planner_service.get_favorite_videos(user_id)
 
     if params[:clear_search].present?
-      @videos = [] # Clear the search results
+      @videos = []
     elsif params[:q].present? && params[:duration].present?
       @videos = pom_planner_service.search_videos(params[:q], params[:duration])
     else
