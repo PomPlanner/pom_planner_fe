@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 
   def create
-    redirect_to 'http://localhost:5000/api/v1/auth/google_oauth2'
+    redirect_to 'http://localhost:5000/api/v1/auth/google_oauth2?prompt=select_account'
   end
 
   def omniauth
