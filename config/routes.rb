@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   # get '/users/:id', to: 'users#show', as: 'user'
   get '/auth/google_oauth2/callback', to: 'sessions#omniauth'
   get '/auth/failure', to: redirect('/')
-  get '/logout', to: 'sessions#destroy'
+  delete '/logout', to: 'sessions#destroy'
   # delete '/logout', to: 'sessions#destroy', as: 'logout'
   
   resources :users, only: [:show] do

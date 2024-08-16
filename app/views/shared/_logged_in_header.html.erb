@@ -9,7 +9,9 @@
         <h1>Welcome to PomPlanner, <%= @user.name %>!</h1>
       </div>
       <div class="col-md-2 text-end">
-        <%= link_to 'Logout', logout_path, method: :delete, class: "btn btn-secondary", data: { turbo_method: :delete } %>
+        <%= form_with url: logout_path, method: :delete, local: true do %>
+          <%= submit_tag 'Logout', class: "btn btn-secondary" %>
+        <% end %>
       </div>
     </div>
   </div>

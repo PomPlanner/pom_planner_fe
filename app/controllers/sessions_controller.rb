@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
 
   def destroy
     response = pom_planner_service.delete_url('http://localhost:5000/api/v1/logout')
-    if response.success?
+    if response[:status] == 200
       session[:user_id] = nil
       reset_session
       redirect_to root_path, notice: "Logged out!"
