@@ -1,2 +1,5 @@
 <%= turbo_stream.remove "video_#{params[:id]}" %>
 
+<%= turbo_stream.update "flash-messages" do %>
+  <%= render "shared/flash" %>
+<% end %>

@@ -2,3 +2,6 @@
   <%= render partial: "videos/video_item", locals: { video: @favorite_videos.last } %>
 <% end %>
 
+<%= turbo_stream.update "flash-messages" do %>
+  <%= render "shared/flash" %>
+<% end %>
