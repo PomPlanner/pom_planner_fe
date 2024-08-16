@@ -21,6 +21,7 @@ class PomPlannerService
   
   def delete_url(url)
     response = conn.delete(url)
+    conn.builder.handlers.delete(:cookie_jar)
     { status: response.status }
   end
 
