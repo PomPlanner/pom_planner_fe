@@ -12,14 +12,11 @@
   <%= javascript_importmap_tags %>
 </head>
 <body>
-  <div id="flash-messages">
-    <% flash.each do |type, message| %>
-      <section class=<%= type %>>
-        <p><%= message %></p>
-      </section>
-    <% end %>
-    <% flash.clear %>
-  </div>
+  <%= turbo_frame_tag "flash-messages" do %>
+    <div id="flash-messages">
+      <%= render 'shared/flash' %>
+    </div>
+  <% end %>
 
   <%= yield %>
 </body>

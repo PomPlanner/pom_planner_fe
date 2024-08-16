@@ -1,5 +1,2 @@
 <%= turbo_stream.remove "video_#{params[:id]}" %>
 
-<%= turbo_stream.append "flash-messages" do %>
-  <div class="alert alert-notice">Video successfully removed</div>
-<% end %>
