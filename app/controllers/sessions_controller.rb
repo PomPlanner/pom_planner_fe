@@ -9,7 +9,6 @@ class SessionsController < ApplicationController
     if user_id
       session[:user_id] = user_id
       redirect_to user_path(user_id), notice: "Signed in successfully"
-      # require 'pry'; binding.pry
     else
       redirect_to root_path, alert: "Authentication failed. Please try again."
     end
@@ -22,7 +21,6 @@ class SessionsController < ApplicationController
       reset_session
       redirect_to root_path, notice: "Logged out!"
     else
-    # require 'pry'; binding.pry
       flash[:error] = "Failed to logout. Please try again."
       redirect_to root_path
     end
