@@ -4,4 +4,21 @@
   <p>Category: <%= video.duration_category %></p>
   <iframe width="560" height="315" src="<%= video.embed_url %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   <%= button_to 'Remove from favorites', user_video_path(@user.id, video.id), method: :delete, remote: true %>
+  
+  <button onclick="document.getElementById('pom_event_form_<%= video.id %>').style.display='block'">Create Pom Event</button>
+  
+  <div id="pom_event_form_<%= video.id %>" style="display:none;">
+    <%= form_with url: create_pom_event_user_video_path(@user.id, video.id), method: :post, local: true do |f| %>
+      <div>
+        <%= f.label :start_time, "Start Time" %>
+        <%= f.datetime_local_field :start_time %>
+      </div>
+      <div>
+        <%= f.hidden_field :summary, value: "Pomodoro Event" %>
+        <%= f.hidden_field :video_duration, value: video.duration %>
+        <%= f.hidden_field :description, value: video.url %>
+      </div>
+      <%= f.submit "Create Event" %>
+    <% end %>
+  </div>
 </li>

@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   # delete '/logout', to: 'sessions#destroy', as: 'logout'
   
   resources :users, only: [:show] do
-    resources :videos, only: [:index, :create, :destroy]
+    resources :videos, only: [:index, :create, :destroy] do
+      post 'create_pom_event', on: :member
+    end
   end
   
   get '/users/:id/search', to: 'search#index', as: 'user_search'

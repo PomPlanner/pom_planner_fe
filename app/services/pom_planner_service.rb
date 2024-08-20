@@ -57,4 +57,13 @@ class PomPlannerService
   def remove_favorite_video(user_id, video_id)
     delete_url("/api/v1/users/#{user_id}/videos/#{video_id}")
   end
+
+  def create_pom_event(user_id, video_id, start_time)
+    post_url("/api/v1/users/#{user_id}/events/generate_google_calendar_link", {
+      user_id: user_id,
+      video_id: video_id,
+      start_time: start_time,
+      summary: "PomPlaner Pomodoro Event, get up out of your chair and listen/do the video"
+    })
+  end
 end
