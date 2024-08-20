@@ -43,6 +43,20 @@ class VideosController < ApplicationController
     end
   end
 
+  def create_pom_event
+    start_time = params[:start_time].to_datetime
+    summary = params[:summary]
+    video_duration = params[:video_duration]
+    description = params[:description]
+
+    response = PomPlannerService.new.create_pom_event(current_user.id, params[:id], start_time, summary, video_duration, description)
+    if response[:status] == 200
+      redirect_to response[:event_link], notice: "PomPlanner event created successfully!"
+    else
+      redirect_to user_videos_path(current_user), alert: "Failed to create PomPlanner event."
+    end
+  end
+
   private
 
   def set_user
@@ -53,7 +67,7 @@ class VideosController < ApplicationController
   end
 
   def video_params
-    params.require(:video).permit(:title, :url, :embed_url, :duration, :duration_category)
+    params.require(:user_video).permit(:title, :url, :embed_url, :duration, :duration_category)
   end
 
   def pom_planner_service

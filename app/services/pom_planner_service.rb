@@ -43,14 +43,19 @@ class PomPlannerService
   end
 
   def add_favorite_video(user_id, video_params)
-    post_url("/api/v1/users/#{user_id}/videos", { video: video_params })
+    post_url("/api/v1/users/#{user_id}/videos", { user_video: video_params })
   end
 
   def get_favorite_videos(user_id)
     data = get_url("/api/v1/users/#{user_id}/videos")
-    data[:data].map do |video_data|
-      attributes = video_data[:attributes].merge(id: video_data[:id])
-      Video.new(attributes)
+    
+    if data[:data].present?
+      data[:data].map do |video_data|
+        attributes = video_data[:attributes].merge(id: video_data[:id])
+        Video.new(attributes)
+      end
+    else
+      []
     end
   end
 
@@ -58,12 +63,14 @@ class PomPlannerService
     delete_url("/api/v1/users/#{user_id}/videos/#{video_id}")
   end
 
-  def create_pom_event(user_id, video_id, start_time)
+  def create_pom_event(user_id, video_id, start_time, summary, video_duration, description)
     post_url("/api/v1/users/#{user_id}/events/generate_google_calendar_link", {
       user_id: user_id,
       video_id: video_id,
       start_time: start_time,
-      summary: "PomPlaner Pomodoro Event, get up out of your chair and listen/do the video"
+      summary: "PomPlaner Pomodoro Event, get up out of your chair and listen/do the video",
+      video_duration: video_duration,
+      description: description
     })
   end
 end

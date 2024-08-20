@@ -1,5 +1,9 @@
 <%= turbo_stream.append "favorite-videos-list" do %>
-  <%= render partial: "videos/video_item", locals: { video: @favorite_videos.last } %>
+  <% if @favorite_videos.present? && @favorite_videos.last.present? %>
+    <%= render partial: "videos/video_item", locals: { video: @favorite_videos.last } %>
+  <% else %>
+    <p>No favorite videos available.</p>
+  <% end %>
 <% end %>
 
 <%= turbo_stream.update "flash-messages" do %>
