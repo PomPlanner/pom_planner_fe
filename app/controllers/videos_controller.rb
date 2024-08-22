@@ -44,18 +44,21 @@ class VideosController < ApplicationController
   end
 
   def create_pom_event
-    start_time = params[:start_time].to_datetime
+    start_time = params[:start_time].to_datetime.utc.iso8601
     summary = params[:summary]
     video_duration = params[:video_duration]
     description = params[:description]
 
-    response = PomPlannerService.new.create_pom_event(current_user.id, params[:id], start_time, summary, video_duration, description)
+    response = PomPlannerService.new.create_pom_event(@user.id, params[:id], start_time, summary, video_duration, description)
+    Rails.logger.debug "Start time: #{start_time}"
     if response[:status] == 200
-      redirect_to response[:event_link], notice: "PomPlanner event created successfully!"
+      render json: { event_link: response[:event_link] }
     else
-      redirect_to user_videos_path(current_user), alert: "Failed to create PomPlanner event."
+      Rails.logger.error("Failed to create PomPlanner event for user #{@user.id}: #{response.inspect}")
+      render json: { error: "Failed to create PomPlanner event." }, status: :unprocessable_entity
     end
   end
+
 
   private
 
