@@ -43,6 +43,20 @@ class VideosController < ApplicationController
     end
   end
 
+  def create_pom_event
+    description = params[:description]
+
+    # Generate the Google Calendar link
+    event_link = "https://www.google.com/calendar/render?action=TEMPLATE"
+    event_link += "&text=Pomodoro+Event+with+Video"
+    event_link += "&details=Watch+this+video:+#{URI.encode_www_form_component(description)}"
+
+    # Return a JavaScript snippet that opens the link in a new window
+    respond_to do |format|
+      format.js { render js: "window.open('#{event_link}', '_blank', 'width=800,height=600');" }
+    end
+  end
+
   private
 
   def set_user
@@ -53,7 +67,7 @@ class VideosController < ApplicationController
   end
 
   def video_params
-    params.require(:video).permit(:title, :url, :embed_url, :duration, :duration_category)
+    params.require(:user_video).permit(:title, :url, :embed_url, :duration, :duration_category)
   end
 
   def pom_planner_service
