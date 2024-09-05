@@ -10,7 +10,7 @@
 
   <!-- Hidden form for creating the Pomodoro event -->
   <div id="pom_event_form_<%= video.id %>" style="display:none;">
-    <%= form_with url: create_pom_event_user_video_path(@user.id, video.id), method: :post, local: true, data: { turbo: false }, id: "pom_event_form_#{video.id}" do |f| %>
+    <%= form_with url: create_pom_event_user_video_path(@user.id, video.id), method: :post, local: true, data: { turbo: false } do |f| %>
       <%= f.hidden_field :summary, value: "Pomodoro Event" %>
       <%= f.hidden_field :video_duration, value: video.duration %>
       <%= f.hidden_field :description, value: video.url %>
