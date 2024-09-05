@@ -44,21 +44,18 @@ class VideosController < ApplicationController
   end
 
   def create_pom_event
-    start_time = params[:start_time].to_datetime.utc.iso8601
-    summary = params[:summary]
-    video_duration = params[:video_duration]
     description = params[:description]
 
-    response = PomPlannerService.new.create_pom_event(@user.id, params[:id], start_time, summary, video_duration, description)
-    Rails.logger.debug "Start time: #{start_time}"
-    if response[:status] == 200
-      render json: { event_link: response[:event_link] }
-    else
-      Rails.logger.error("Failed to create PomPlanner event for user #{@user.id}: #{response.inspect}")
-      render json: { error: "Failed to create PomPlanner event." }, status: :unprocessable_entity
+    # Generate the Google Calendar link
+    event_link = "https://www.google.com/calendar/render?action=TEMPLATE"
+    event_link += "&text=Pomodoro+Event+with+Video"
+    event_link += "&details=Watch+this+video:+#{URI.encode_www_form_component(description)}"
+
+    # Return a JavaScript snippet that opens the link in a new window
+    respond_to do |format|
+      format.js { render js: "window.open('#{event_link}', '_blank', 'width=800,height=600');" }
     end
   end
-
 
   private
 

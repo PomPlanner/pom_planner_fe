@@ -21,9 +21,11 @@
   <div class="container mt-4">
     <div class="row">
       <div class="col-md-7">
-        <%= turbo_frame_tag "favorite-videos" do %>
+        <h3 class="favorite-title">Favorite Videos</h3>
+        <!-- Define the ul once for the list of favorite videos -->
+        <ul id="favorite-videos-list">
           <%= render partial: 'videos/favorite_videos', locals: { favorite_videos: @favorite_videos } %>
-        <% end %>
+        </ul>
       </div>
       
       <div class="col-md-5">
