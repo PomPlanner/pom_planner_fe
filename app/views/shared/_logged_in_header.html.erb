@@ -4,6 +4,11 @@
       <div class="col-md-2 text-start">
         <img src="<%= @user.image %>" alt="Profile Image" class="profile-image">
         <p>Email: <%= @user.email %></p>
+        <p>
+          <a href="https://calendar.google.com/calendar/u/0/r" target="_blank" class="btn btn-primary">
+            View Google Calendar
+          </a>
+        </p>
       </div>
       <div class="col-md-8 text-center">
         <h1>Welcome to PomPlanner, <%= @user.name %>!</h1>
