@@ -8,13 +8,21 @@
  * You're free to add application-wide styles to this file and they'll appear at the bottom of the
  * compiled file so the styles you add here take precedence over styles defined in any other CSS
  * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
  *
  *= require_tree .
  *= require_self
  */
 
- @import "bootstrap";
+@import "bootstrap";
+
+:root {
+  --space-m: 1rem;
+  --space-xs: 0.5rem;
+  --font-size-s: 14px;
+  --color-dark: #333; // Customize this to any dark color you'd like
+  --color-white: #fff;
+}
+
 .alert {
   padding: 1rem;
   margin-bottom: 1rem;
@@ -31,5 +39,23 @@
     color: #721c24;
     background-color: #f8d7da;
     border-color: #f5c6cb;
+  }
+}
+
+.flash {
+  position: fixed;
+  top: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 100%;
+  width: max-content;
+  padding: 0 var(--space-m);
+
+  &__message {
+    font-size: var(--font-size-s);
+    color: var(--color-white);
+    padding: var(--space-xs) var(--space-m);
+    background-color: var(--color-dark);
+    border-radius: 999px;
   }
 }
