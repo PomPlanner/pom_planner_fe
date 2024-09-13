@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "User Show Page" do
   before :each do
+    # Mock the user login by setting the session
+    allow_any_instance_of(ApplicationController).to receive(:session).and_return({ user_id: 1 })
+
+    # Mock API response to return the user details
     stub_request(:get, "http://localhost:5000/api/v1/users/1")
       .to_return(status: 200, body: {
         data: {
@@ -21,12 +25,10 @@ RSpec.describe "User Show Page" do
   
   it "renders the header with a logout link" do
     expect(page).to have_content("PomPlanner")
-    expect(page).to have_link("Logout", href: logout_path, class: "btn btn-secondary")
+    expect(page).to have_button("Logout", class: "btn btn-danger")
   end
   
   it "has a section for user videos" do
-    within '.favorite-videos' do
-      expect(page).to have_content("Favorite Videos")
-    end
+    expect(page).to have_css('.favorite-title', text: 'Favorite Videos')
   end
 end
