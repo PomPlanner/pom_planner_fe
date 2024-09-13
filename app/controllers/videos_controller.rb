@@ -6,6 +6,8 @@ class VideosController < ApplicationController
 
     if response[:status] == 201
       @favorite_videos = pom_planner_service.get_favorite_videos(@user.id)
+      @was_empty = @favorite_videos.empty?
+      Rails.logger.debug "Appending video #{@favorite_videos.last.title} to list"
       flash.now[:notice] = "Video added to favorites"
       
       respond_to do |format|
