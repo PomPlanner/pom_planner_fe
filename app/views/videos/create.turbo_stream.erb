@@ -1,12 +1,10 @@
 <% if @favorite_videos.size == 1 %> 
-  <!-- If this is the first video, replace the entire list -->
   <%= turbo_stream.replace "favorite-videos-list" do %>
     <ul id="favorite-videos-list">
       <%= render partial: 'videos/favorite_videos', locals: { favorite_videos: @favorite_videos } %>
     </ul>
   <% end %>
 <% else %> 
-  <!-- Otherwise, append the new video -->
   <%= turbo_stream.append "favorite-videos-list" do %>
     <%= render partial: "videos/video_item", locals: { video: @favorite_videos.last } %>
   <% end %>
