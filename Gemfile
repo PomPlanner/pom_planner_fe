@@ -64,6 +64,8 @@ group :development, :test do
   gem "simplecov", require: false, group: :test
   gem "faker"
   gem "factory_bot_rails"
+  gem 'omniauth'
+  gem 'omniauth-google-oauth2'
 end
 
 group :development do
