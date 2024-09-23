@@ -1,0 +1,23 @@
+<header class="bg-light py-3">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-md-2 text-start">
+        <img src="<%= @user.image %>" alt="Profile Image" class="profile-image">
+        <p>Email: <%= @user.email %></p>
+        <p>
+          <a href="https://calendar.google.com/calendar/u/0/r" target="_blank" class="btn btn-success">
+            View Google Calendar
+          </a>
+        </p>
+      </div>
+      <div class="col-md-8 text-center">
+        <h1>Welcome to PomPlanner, <%= @user.name %>!</h1>
+      </div>
+      <div class="col-md-2 text-end">
+        <%= form_with url: logout_path, method: :delete, local: true do %>
+          <%= submit_tag 'Logout', class: "btn btn-danger" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</header>

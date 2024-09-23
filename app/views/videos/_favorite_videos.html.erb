@@ -1,0 +1,7 @@
+<% if @favorite_videos.present? %>
+  <% @favorite_videos.each do |video| %>
+    <%= render partial: "videos/video_item", locals: { video: video } %>
+  <% end %>
+<% else %>
+  <p>No favorite videos available.</p>
+<% end %>

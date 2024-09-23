@@ -1,0 +1,52 @@
+<li id="video_<%= video.id %>">
+  <h3><%= video.title %></h3>
+  <p>Duration: <%= video.duration %></p>
+  <p>Category: <%= video.duration_category %></p>
+  <iframe width="560" height="315" src="<%= video.embed_url %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <%= button_to 'Remove from favorites', user_video_path(@user.id, video.id), method: :delete, remote: true, class: 'btn btn-danger' %>
+
+  <!-- Trigger form submission and open calendar window on button click -->
+  <button onclick="submitFormAndOpenNewWindow('<%= video.id %>')">Create Pom Event</button>
+
+  <!-- Hidden form for creating the Pomodoro event -->
+  <div id="pom_event_form_<%= video.id %>" style="display:none;">
+    <%= form_with url: create_pom_event_user_video_path(@user.id, video.id), method: :post, local: true, data: { turbo: false } do |f| %>
+      <%= f.hidden_field :summary, value: "Pomodoro Event" %>
+      <%= f.hidden_field :video_duration, value: video.duration %>
+      <%= f.hidden_field :description, value: video.url %>
+    <% end %>
+  </div>
+</li>
+
+<script>
+  // Trigger form submission and handle response
+  function submitFormAndOpenNewWindow(videoId) {
+    // Select the correct form element by ID
+    const form = document.querySelector(`#pom_event_form_${videoId} form`);
+    
+    if (!form) {
+      console.error('Form not found');
+      return;
+    }
+
+    const formData = new FormData(form);
+    const url = form.action;
+
+    fetch(url, {
+      method: form.method,
+      body: formData,
+      headers: {
+        'Accept': 'application/javascript',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+      }
+    })
+    .then(response => response.text())
+    .then(data => {
+      eval(data);  // Executes the JavaScript returned by the server
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Failed to create PomPlanner event.');
+    });
+  }
+</script>
