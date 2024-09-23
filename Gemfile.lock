@@ -144,11 +144,7 @@ GEM
     hashie (5.0.0)
     http-cookie (1.0.7)
       domain_name (~> 0.5)
-<<<<<<< HEAD
     i18n (1.14.6)
-=======
-    i18n (1.14.5)
->>>>>>> 5bfa77cbf730979295e38f4834a13eb0243f2a30
       concurrent-ruby (~> 1.0)
     importmap-rails (2.0.1)
       actionpack (>= 6.0.0)
