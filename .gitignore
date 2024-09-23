@@ -35,5 +35,9 @@
 /config/master.key
 
 # Ignore Simplecov
+<<<<<<< HEAD
 /coverage
 /config/credentials/production.key
+=======
+/coverage
+>>>>>>> 5bfa77cbf730979295e38f4834a13eb0243f2a30
