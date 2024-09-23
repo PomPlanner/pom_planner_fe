@@ -1,6 +1,6 @@
 class PomPlannerService
   def conn
-    Faraday.new(url: "http://localhost:5000") do |faraday|
+    Faraday.new(url: "https://pom-planner-be.herokuapp.com") do |faraday|
       faraday.use :cookie_jar
       faraday.headers['Content-Type'] = 'application/json'
       faraday.headers['Accept'] = 'application/json'

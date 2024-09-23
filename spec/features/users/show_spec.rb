@@ -6,7 +6,7 @@ RSpec.describe "User Show Page" do
     allow_any_instance_of(ApplicationController).to receive(:session).and_return({ user_id: 1 })
 
     # Mock API response to return the user details
-    stub_request(:get, "http://localhost:5000/api/v1/users/1")
+    stub_request(:get, "https://pom-planner-be.herokuapp.com/api/v1/users/1")
       .to_return(status: 200, body: {
         data: {
           id: "1",
