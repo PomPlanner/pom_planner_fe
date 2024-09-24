@@ -13,7 +13,7 @@ RSpec.describe GoogleCalendarService do
     connection = service.conn
 
     expect(connection).to be_an_instance_of Faraday::Connection
-    expect(connection.url_prefix.to_s).to eq("http://localhost:5000/")
+    expect(connection.url_prefix.to_s).to eq("https://pom-planner-be.herokuapp.com/")
   end
 
   it "#get_url" do
