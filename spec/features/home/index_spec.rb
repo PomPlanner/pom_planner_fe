@@ -12,6 +12,6 @@ RSpec.describe "Home Index Page", type: :feature do
 
     click_button 'Sign in with Google'
 
-    expect(page).to have_current_path("https://pom-planner-be.herokuapp.com/api/v1/auth/google_oauth2", url: true)
+    expect(page).to have_current_path("https://https://pom-planner-be-31825074f3c8.herokuapp.com/api/v1/auth/google_oauth2", url: true)
   end
 end
