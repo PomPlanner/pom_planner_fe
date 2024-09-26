@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "start": "bin/rails server -b 0.0.0.0 -p https://pom-planner.herokuapp.com/"
+    "start": "bin/rails server -b 0.0.0.0 -p $PORT"
   },
   "engines": {
     "node": "16.15.1"
