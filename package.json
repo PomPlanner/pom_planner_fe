@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "start": "bin/rails server -b 0.0.0.0 -p https://pom-planner-6a8ebbf9e5c1.herokuapp.com/"
+    "start": "start": "bin/rails server -b 0.0.0.0 -p https://pom-planner.herokuapp.com/"
   },
   "engines": {
     "node": "16.15.1"
