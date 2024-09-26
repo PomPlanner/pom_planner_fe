@@ -13,7 +13,7 @@ RSpec.describe UserService do
     connection = service.conn
 
     expect(connection).to be_an_instance_of Faraday::Connection
-    expect(connection.url_prefix.to_s).to eq("https://pom-planner-be.herokuapp.com/")
+    expect(connection.url_prefix.to_s).to eq("https://pom-planner-be-31825074f3c8.herokuapp.com/")
   end
 
   it "#get_url" do
