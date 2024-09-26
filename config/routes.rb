@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   root "home#index"  # Assuming HomeController with an index action
   
   # get '/users/:id', to: 'users#show', as: 'user'
-  get '/auth/google_oauth2/callback', to: 'sessions#omniauth'
-  get '/auth/failure', to: redirect('/')
-  delete '/logout', to: 'sessions#destroy'
+  get 'auth/google_oauth2/callback', to: 'sessions#omniauth'
+  get 'auth/failure', to: redirect('/')
+  delete 'logout', to: 'sessions#destroy'
   # delete '/logout', to: 'sessions#destroy', as: 'logout'
   
   resources :users, only: [:show] do
@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     end
   end
   
-  get '/users/:id/search', to: 'search#index', as: 'user_search'
+  get 'users/:id/search', to: 'search#index', as: 'user_search'
   resources :search, only: [:show]
   
   get "up" => "rails/health#show", as: :rails_health_check
