@@ -3,7 +3,8 @@
     "start": "bin/rails server -b 0.0.0.0 -p $PORT"
   },
   "engines": {
-    "node": "16.15.1"
+    "node": "16.15.1",
+    "npm": "8.11.0"
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.0.0",
