@@ -4,6 +4,7 @@ class PomPlannerService
       faraday.use :cookie_jar
       faraday.headers['Content-Type'] = 'application/json'
       faraday.headers['Accept'] = 'application/json'
+      faraday.options[:credentials] = true
     end
   end
 
