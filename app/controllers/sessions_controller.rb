@@ -3,7 +3,6 @@ class SessionsController < ApplicationController
   def create
     # redirect_to 'http://localhost:5000/api/v1/auth/google_oauth2?prompt=select_account'
     redirect_to 'https://pom-planner-be-31825074f3c8.herokuapp.com/api/v1/auth/google_oauth2?prompt=select_account'
-
   end
 
   def omniauth
