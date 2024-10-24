@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_login, only: [:show]
+  # before_action :require_login, only: [:show]
 
   def show
     user_id = params[:id].to_i
@@ -28,11 +28,11 @@ class UsersController < ApplicationController
     @pom_planner_service ||= PomPlannerService.new
   end
 
-  def require_login
-    unless session[:user_id]
-      Rails.logger.info("Session user_id in require_login: #{session[:user_id]}")
-      Rails.logger.info("Session data: #{session.inspect}")
-      redirect_to root_path, alert: "You must be logged in to access this section"
-    end
-  end
+  # def require_login
+  #   unless session[:user_id]
+  #     Rails.logger.info("Session user_id in require_login: #{session[:user_id]}")
+  #     Rails.logger.info("Session data: #{session.inspect}")
+  #     redirect_to root_path, alert: "You must be logged in to access this section"
+  #   end
+  # end
 end
