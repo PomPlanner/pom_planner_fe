@@ -5,13 +5,18 @@ class PomPlannerService
       faraday.headers['Content-Type'] = 'application/json'
       faraday.headers['Accept'] = 'application/json'
     end
-    Rails.logger.info("Cookies being sent: #{conn.builder.handlers}")
   end
 
   def get_url(url)
     response = conn.get(url)
-    JSON.parse(response.body, symbolize_names: true)
+    if response.success?
+      JSON.parse(response.body, symbolize_names: true)
+    else
+      Rails.logger.error("Error fetching URL: #{url}, Response status: #{response.status}, Body: #{response.body}")
+      nil
+    end
   end
+
 
   def post_url(url, params)
     response = conn.post(url) do |req|
