@@ -32,9 +32,14 @@ class PomPlannerService
   end
 
   def get_user(user_id)
+    unless user_id.present?
+      Rails.logger.error("User ID is missing or invalid")
+      return nil
+    end
+
     data = get_url("/api/v1/users/#{user_id}")
 
-    if data.key?(:data) && data[:data].key?(:attributes)
+    if data && data.key?(:data) && data[:data].key?(:attributes)
       attributes = data[:data][:attributes]
       User.new(attributes.transform_keys(&:to_sym))
     else
@@ -42,6 +47,7 @@ class PomPlannerService
       nil
     end
   end
+
   
   def search_videos(query, duration)
     data = get_url("/api/v1/search?query=#{query}&video_duration=#{duration}")
