@@ -5,6 +5,7 @@ class PomPlannerService
       faraday.headers['Content-Type'] = 'application/json'
       faraday.headers['Accept'] = 'application/json'
     end
+    Rails.logger.info("Cookies being sent: #{conn.builder.handlers}")
   end
 
   def get_url(url)
