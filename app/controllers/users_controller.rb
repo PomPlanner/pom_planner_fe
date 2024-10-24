@@ -31,6 +31,7 @@ class UsersController < ApplicationController
   def require_login
     unless session[:user_id]
       Rails.logger.info("Session user_id in require_login: #{session[:user_id]}")
+      Rails.logger.info("Session data: #{session.inspect}")
       redirect_to root_path, alert: "You must be logged in to access this section"
     end
   end

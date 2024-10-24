@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
     if user_id
       session[:user_id] = user_id
       Rails.logger.info("Session user_id set to: #{session[:user_id]}")
+      Rails.logger.info("Session data: #{session.inspect}")
       redirect_to user_path(user_id), notice: "Signed in successfully"
     else
       redirect_to root_path, alert: "Authentication failed. Please try again."
