@@ -56,7 +56,9 @@ class PomPlannerService
   end
 
   def add_favorite_video(user_id, video_params)
-    post_url("/api/v1/users/#{user_id}/videos", { user_video: video_params })
+    response = post_url("/api/v1/users/#{user_id}/videos", { user_video: video_params })
+    Rails.logger.info "Response from add_favorite_video: #{response.inspect}"
+    response
   end
 
   def get_favorite_videos(user_id)
