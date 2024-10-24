@@ -40,6 +40,7 @@ class PomPlannerService
     data = get_url("/api/v1/users/#{user_id}")
 
     if data && data.key?(:data) && data[:data].key?(:attributes)
+      Rails.logger.info("Fetching user with ID: #{user_id}")
       attributes = data[:data][:attributes]
       User.new(attributes.transform_keys(&:to_sym))
     else

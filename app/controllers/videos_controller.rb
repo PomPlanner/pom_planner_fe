@@ -63,6 +63,7 @@ class VideosController < ApplicationController
 
   def set_user
     @user = pom_planner_service.get_user(session[:user_id])
+    Rails.logger.info("Session user_id: #{session[:user_id]}")
     unless @user
       redirect_to root_path, alert: "User not found"
     end
