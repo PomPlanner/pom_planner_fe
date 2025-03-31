@@ -1,6 +1,7 @@
 class PomPlannerService
   def conn
-    Faraday.new(url: "https://pom-planner-be-31825074f3c8.herokuapp.com") do |faraday|
+    # Faraday.new(url: "https://pom-planner-be-31825074f3c8.herokuapp.com") do |faraday|
+    Faraday.new(url: "http://localhost:5000") do |faraday|
       faraday.use :cookie_jar
       faraday.headers['Content-Type'] = 'application/json'
       faraday.headers['Accept'] = 'application/json'
@@ -49,7 +50,6 @@ class PomPlannerService
     end
   end
 
-  
   def search_videos(query, duration)
     data = get_url("/api/v1/search?query=#{query}&video_duration=#{duration}")
     data[:data].map { |video_data| Video.new(video_data[:attributes]) }

@@ -1,8 +1,8 @@
 class SessionsController < ApplicationController
 
   def create
-    # redirect_to 'http://localhost:5000/api/v1/auth/google_oauth2?prompt=select_account'
-    redirect_to 'https://pom-planner-be-31825074f3c8.herokuapp.com/api/v1/auth/google_oauth2?prompt=select_account'
+    redirect_to 'http://localhost:5000/api/v1/auth/google_oauth2?prompt=select_account'
+    # redirect_to 'https://pom-planner-be-31825074f3c8.herokuapp.com/api/v1/auth/google_oauth2?prompt=select_account'
   end
 
   def omniauth
@@ -18,7 +18,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    response = pom_planner_service.delete_url('https://pom-planner-be-31825074f3c8.herokuapp.com/api/v1/logout')
+    # response = pom_planner_service.delete_url('https://pom-planner-be-31825074f3c8.herokuapp.com/api/v1/logout')
+    response = pom_planner_service.delete_url('http://localhost:5000/api/v1/logout')
     if response[:status] == 200
       session[:user_id] = nil
       reset_session
